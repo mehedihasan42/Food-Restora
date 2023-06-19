@@ -9,11 +9,11 @@ const Featured = () => {
            <div className='bg-black bg-opacity-60 py-2'>
            <SectionTitle
                 subHeading='---Check it out---'
-                heading='FROM OUR MENU'
+                heading='Featured Item'
             />
             <div className='flex justify-center items-center  pb-20 pt-8 space-x-14'>
                 <div>
-                    <img className='h-80' src={image} alt="" />
+                    <img className='h-80 rounded' src={image} alt="" />
                 </div>
                 <div className='w-1/3 space-y-2.5 font-normal'>
                     <p>June 18, 2023</p>

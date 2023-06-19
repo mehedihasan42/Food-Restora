@@ -34,7 +34,7 @@ const Testimonials = () => {
                                     readOnly
                                     className='mx-auto my-2'
                                 />
-                                    <p className='text-[#444444]'>{review.details}</p>
+                                    <p className='text-[#444444] text-center'>{review.details}</p>
                                     <h3 className='text-[#CD9003] text-center text-3xl'>{review.name}</h3>
                                 </div>
                             </SwiperSlide>
