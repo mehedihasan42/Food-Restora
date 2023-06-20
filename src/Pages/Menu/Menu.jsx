@@ -7,7 +7,10 @@ import SectionTitle from '../../Components/SectionTitle/SectionTitle';
 import { Parallax } from 'swiper';
 import useMenu from '../../hooks/useMenu';
 import MenuCategory from './MenuCategory';
-import dessert from '../../assets/menu/dessert-bg.jpeg'
+import dessert from '../../assets/menu/dessert-bg.jpeg';
+import pizza from '../../assets/menu/pizza-bg.jpg';
+import salad from '../../assets/menu/salad-bg.jpg'
+// import dessert from '../../assets/menu/dessert-bg.jpeg'
 
 const Menu = () => {
   const [menu] = useMenu()
@@ -25,7 +28,10 @@ const Menu = () => {
         <Covoer title='our menu' img={manuImage}></Covoer>
         <SectionTitle subHeading="---Don't miss---" heading="TODAY'S OFFER" ></SectionTitle>
        <MenuCategory items={offered} />
-       <MenuCategory subHeading='' img={dessert} title='Desserts' items={desserts} />
+       <MenuCategory img={dessert} title='dessert' items={desserts} />
+       <MenuCategory img={pizza} title='Pizza' items={pizza} />
+       <MenuCategory img={salad} title='Salad' items={salad} />
+       <MenuCategory img={soup} title='soup' items={soup} />
 
     </>
   );

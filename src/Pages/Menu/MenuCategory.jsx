@@ -2,6 +2,7 @@ import React from 'react';
 import MenuCard from '../Home/Menu/MenuCard';
 import Covoer from '../../Shared/Covoer/Covoer';
 import SectionTitle from '../../Components/SectionTitle/SectionTitle';
+import { Link } from 'react-router-dom';
 
 const MenuCategory = ({ items, img, title,subHeading,heading }) => {
     return (
@@ -17,6 +18,7 @@ const MenuCategory = ({ items, img, title,subHeading,heading }) => {
                     ></MenuCard>)
                 }
             </div>
+            <Link to={`/order/${title}`}><button>Order Now</button></Link>
         </div>
     );
 };
