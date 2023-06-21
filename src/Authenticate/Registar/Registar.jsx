@@ -1,13 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Registar = () => {
 
-  const {  register,handleSubmit,watch,formState: { errors } } = useForm()
+  const {createUser} = useAuth()
+
+  const {register,handleSubmit,watch,formState: { errors },} = useForm()
 
   const onSubmit = data =>{
-         console.log(data.name,data.email,data.password)
+    createUser(data.email,data.password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
   }
 
   return (

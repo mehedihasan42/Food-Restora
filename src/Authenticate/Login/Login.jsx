@@ -1,31 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+// import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   
   const [disable,setDisable] = useState(true)
+  const {userLogin} = useAuth()
   const {  register,handleSubmit,watch,formState: { errors } } = useForm()
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const captchaRef = useRef(null)
-  useEffect(()=>{
-    loadCaptchaEnginge(6); 
-  },[])
+  let from = location.state?.from?.pathname || "/";
 
-  const handleValidateCaptcha = () =>{
-      const user_captcha_value = captchaRef.current.value;
-      if(validateCaptcha(user_captcha_value)){
-        setDisable(false)
-      }
-      else{
-        setDisable(true)
-      }
+  // const captchaRef = useRef(null)
+  // useEffect(()=>{
+  //   loadCaptchaEnginge(6); 
+  // },[])
+  
+  // const handleValidateCaptcha = () =>{
+  //     const user_captcha_value = captchaRef.current.value;
+  //     if(validateCaptcha(user_captcha_value)){
+  //       setDisable(false)
+  //     }
+  //     else{
+  //       setDisable(true)
+  //     }
 
-  }
+  // }
 
   const onSubmit = data =>{
-         console.log(data.email,data.password)
+    userLogin(data.email,data.password)
+    .then(result=>{
+      const user = result.user;
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      navigate(from, { replace: true });
+    })
   }
 
   return (
@@ -61,17 +79,17 @@ const Login = () => {
               </label>
             </div>
             {/* -------------------captcha----------------------- */}
-            <div className="form-control">
+            {/* <div className="form-control">
             <label className="label">
             <LoadCanvasTemplate />
               </label>
               <input
                  {...register("captach",{ required: true })}
                  placeholder='type the text above'
-               type="text" className="input input-bordered" ref={captchaRef} />
+               type="text" className="input input-bordered" />
                  {errors.captach && <span>This field is required</span>}
-                 <button  onClick={handleValidateCaptcha} className="btn btn-outline btn-xs w-24">Validate</button>
-            </div>
+                 <button  className="btn btn-outline btn-xs w-24">Validate</button>
+            </div> */}
             <div className="form-control mt-6">
               <button disable={disable} type="submit" className="btn bg-orange-500">Login</button>
             </div>
