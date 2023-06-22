@@ -2,6 +2,9 @@ import React from 'react';
 
 const FoodCards = ({item}) => {
     const {image,name,price,recipe} = item;
+    const handleFoodCard = item =>{
+        console.log(item)
+    }
     return (
         <div className="card card-compact w-96 my-6 bg-base-100 shadow-xl">
         <figure><img src={image} alt="Shoes" /></figure>
@@ -10,7 +13,7 @@ const FoodCards = ({item}) => {
           <p className='bg-slate-800 text-white font-bold absolute top-0 right-2 p-2'>${price}</p>
           <p>{recipe}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button onClick={()=>handleFoodCard(item)} className="btn btn-primary">Order Now</button>
           </div>
         </div>
       </div>

@@ -1,23 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { FaShoppingCart } from "react-icons/fa";
 
 const NavBar = () => {
 
-  const {user, logOut} = useAuth() 
+  const { user, logOut } = useAuth()
+  console.log(user)
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     logOut()
-    .then(()=>{})
-    .catch(error=>console.log(error))
+      .then(() => { })
+      .catch(error => console.log(error))
   }
 
   const navBar = <>
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/menu'>Menu</NavLink></li>
     <li><NavLink to='/order/salad'>Order Food</NavLink></li>
-   
+    <li>
+      <button className="btn">
+       <FaShoppingCart className='text-2xl'/>
+        <div className="badge badge-secondary">+99</div>
+      </button>
+    </li>
   </>
+
   return (
     <>
       <div className="navbar bg-black text-gray-200 max-w-screen-xl bg-opacity-30 fixed z-10">
@@ -38,10 +46,20 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-       {
-        user? <><li><NavLink onClick={handleLogout} className='btn'>Logout</NavLink></li></>
-        :<> <li><NavLink className='btn' to='/login'>Login</NavLink></li></>
-       }
+          {
+            user ? <>
+              <li>
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user?.photoURL} />
+                  </div>
+                </label>
+              </li>
+              <li><NavLink onClick={handleLogout} className='btn'>Logout</NavLink></li>
+              {/* <li><img className='w-8' src={user?.photoURL} alt="" /></li> */}
+            </>
+              : <> <li><NavLink className='btn' to='/login'>Login</NavLink></li></>
+          }
         </div>
       </div>
     </>
