@@ -2,15 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { FaShoppingCart } from "react-icons/fa";
+import useCart from '../../hooks/useCart';
 
 const NavBar = () => {
 
   const { user, logOut } = useAuth()
-  console.log(user)
+  const [,cart] = useCart() 
 
   const handleLogout = () => {
     logOut()
-      .then(() => { })
+      .then(() =>{})
       .catch(error => console.log(error))
   }
 
@@ -18,10 +19,11 @@ const NavBar = () => {
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/menu'>Menu</NavLink></li>
     <li><NavLink to='/order/salad'>Order Food</NavLink></li>
+    <li><NavLink to='/dashboard'>My Orders</NavLink></li>
     <li>
       <button className="btn">
        <FaShoppingCart className='text-2xl'/>
-        <div className="badge badge-secondary">+99</div>
+        <div className="badge badge-secondary">+{cart?.length || 0}</div>
       </button>
     </li>
   </>
