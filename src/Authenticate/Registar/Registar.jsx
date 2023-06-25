@@ -1,11 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import GoogleLogin from '../SocialLogin/GoogleLogin';
 
 const Registar = () => {
 
+  const navigate = useNavigate()
   const { createUser, updateUserProfile } = useAuth()
 
   const { register, handleSubmit, reset, formState: { errors }, } = useForm()
@@ -16,15 +18,28 @@ const Registar = () => {
         const user = result.user;
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
-            console.log('User profile updated')
-            reset()
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Your work has been saved',
-              showConfirmButton: false,
-              timer: 1500
+            const userData = {name:data.name,email:data.email}
+            fetch('http://localhost:5000/users',{
+              method:'POST',
+              headers:{
+                'content-type':'application/json'
+              },
+              body:JSON.stringify(userData)
             })
+              .then(res => res.json())
+              .then(data => {
+                if (data.insertedId) {
+                  reset()
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  navigate('/')
+                }
+              })
           })
           .catch((error) => {
             console.error(error)
@@ -102,6 +117,7 @@ const Registar = () => {
             </div>
           </form>
           <p>Already have an account?<Link className='text-orange-500' to='/login'>Login</Link></p>
+          <GoogleLogin/>
         </div>
       </div>
     </div>

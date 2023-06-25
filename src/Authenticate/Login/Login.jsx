@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import GoogleLogin from '../SocialLogin/GoogleLogin';
 
 const Login = () => {
   
@@ -13,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  let from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
   // const captchaRef = useRef(null)
   // useEffect(()=>{
@@ -95,6 +96,7 @@ const Login = () => {
             </div>
           </form>
           <p>New User?<Link className='text-orange-500' to='/registar'>Registar</Link></p>
+          <GoogleLogin></GoogleLogin>
         </div>
       </div>
     </div>

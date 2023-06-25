@@ -3,8 +3,13 @@ import { Link, Outlet } from 'react-router-dom';
 import { LiaShoppingCartSolid } from "react-icons/lia";
 import { BiSolidWalletAlt } from "react-icons/bi";
 import { FaCalendarAlt,FaHome } from "react-icons/fa";
+import useCart from '../hooks/useCart';
 
 const Dashboard = () => {
+
+    // TODO:make admin dynamic
+    const isAdmin = true;
+    const [,cart] = useCart()
     return (
         <div className="drawer lg:drawer-open ms-0">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -18,9 +23,28 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
                     <li><Link to='/'><FaHome className='text-xl'/>Home</Link></li>
                     <div className="divider"></div>
+                    {/* -------------admin dashboard------------------ */}
+                   {
+                    isAdmin?<>
+                     <li><Link to='/dashboard/allusers'><FaCalendarAlt className='text-xl'/>All Users</Link></li>
+                    <li><Link><BiSolidWalletAlt className='text-xl'/>Payment History</Link></li>
+                    <li className='flex'>
+                  <Link to='/dashboard/mycart' className="flex items-center">
+                   <LiaShoppingCartSolid className='text-2xl'/>My Cart 
+                  <span className='bg-slate-600 p-2 text-slate-50 rounded-xl'>{cart.length}</span>
+                  </Link>
+                    </li>
+                    </>:<>
                     <li><Link><FaCalendarAlt className='text-xl'/>Reservation</Link></li>
                     <li><Link><BiSolidWalletAlt className='text-xl'/>Payment History</Link></li>
-                    <li><Link to='/dashboard/mycart'><LiaShoppingCartSolid className='text-2xl'/>My Cart</Link></li>
+                    <li className='flex'>
+                  <Link to='/dashboard/mycart' className="flex items-center">
+                   <LiaShoppingCartSolid className='text-2xl'/>My Cart 
+                  <span className='bg-slate-600 p-2 text-slate-50 rounded-xl'>{cart.length}</span>
+                  </Link>
+                    </li>
+                    </>
+                   }
                 </ul>
 
             </div>
