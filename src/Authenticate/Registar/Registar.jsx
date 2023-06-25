@@ -18,7 +18,7 @@ const Registar = () => {
         const user = result.user;
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
-            const userData = {name:data.name,email:data.email}
+            const userData = {name:data.name,email:data.email,photo:data.photoURL}
             fetch('http://localhost:5000/users',{
               method:'POST',
               headers:{
