@@ -4,11 +4,12 @@ import { LiaShoppingCartSolid } from "react-icons/lia";
 import { BiSolidWalletAlt } from "react-icons/bi";
 import { FaCalendarAlt,FaHome } from "react-icons/fa";
 import useCart from '../hooks/useCart';
+import useAdmin from '../hooks/useAdmin';
 
 const Dashboard = () => {
 
     // TODO:make admin dynamic
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
     const [,cart] = useCart()
     return (
         <div className="drawer lg:drawer-open ms-0">

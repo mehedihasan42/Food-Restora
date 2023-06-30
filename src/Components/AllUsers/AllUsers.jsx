@@ -1,16 +1,45 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaUsers } from "react-icons/fa";
+import { BiUserPin } from "react-icons/bi";
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiousSecure';
 
 const AllUsers = () => {
-  const { data: users = [] } = useQuery({
+  const [axiosSecure] = useAxiosSecure()
+  const { data: users = [],refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/users')
-      return res.json()
+      const res = await axiosSecure.get('users')
+      return res.data;
     }
   })
+
+  const handleMakeAdmin = user =>{
+    fetch(`http://localhost:5000/users/admin/${user._id}`,{
+      method:'PATCH',
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data)
+      if(data.modifiedCount){
+        refetch()
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: `${user.name} is an admin now`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
+
+  const handleDelete = user =>{
+    
+  }
+
   return (
     <>
       <Helmet>
@@ -42,9 +71,17 @@ const AllUsers = () => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>Purple</td>
+                  <td>
+                    {
+                      user.role === 'admin' ? 'admin' :
+                      <button onClick={()=>handleMakeAdmin(user)} className='btn btn-ghost bg-slate-800'>
+                    <BiUserPin className='text-2xl text-white font-bold'/></button>
+                    }
+                  </td>
                   <th>
-                    <button className="btn btn-ghost"><FaRegTrashAlt className='text-xl' /></button>
+                    <button
+                    onClick={()=>handleDelete(user)}
+                    className="btn btn-ghost bg-slate-800"><FaRegTrashAlt className='text-xl text-white font-bold' /></button>
                   </th>
                 </tr>
               )
