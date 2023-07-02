@@ -52,7 +52,7 @@ const Registar = () => {
     <div className="hero min-h-screen bg-base-200">
 
       <div className="text-center">
-        <h1 className="text-5xl font-bold">Registar now!</h1>
+        <h1 className="text-5xl font-bold">SignUp now!</h1>
         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
 
         <div className="card w-full max-w-sm mx-auto shadow-2xl bg-base-100">
@@ -113,7 +113,7 @@ const Registar = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn bg-orange-500">Login</button>
+              <button type="submit" className="btn bg-orange-500">Sign Up</button>
             </div>
           </form>
           <p>Already have an account?<Link className='text-orange-500' to='/login'>Login</Link></p>
